@@ -1,26 +1,21 @@
-//console.log("hello");
-// output for var: 3 3 3
-//for (var i = 0; i < 3; i++) {
-//    setTimeout(function() {
-//        console.log(i);
-//    })
-//}
-//for (let i = 0; i < 3; i++) {
-//    setTimeout(function() {
-//        console.log(i);
-//    })
-//}
+// first task
+console.log(('a' + + 'a' + 'a' + 's').toLowerCase());
 
-const func = function(a, b) {
-    return a + b;
+// second task
+function calculate(oper, n1, n2) {
+    return(eval(n1 + oper + n2));
+}
+console.log(calculate("-", 2, 3));
+
+// third task
+function fun(a) {
+    function sum(b, c) {
+        return b + c;
+    }
+
+    return function(b, c) {
+        return a * sum(b, c);
+    };
 }
 
-let a = 5;
-console.log(a ** 2); // 25
-console.log(func(10, 20)); // 30
-
-console.log("12" + 12); // 1212
-console.log("12" - 12); // 0
-console.log("ab" - 12); // NaN
-console.log(12 + 12); // 24
-console.log(`+"12" + 12 = ${+"12" + 12}`);
+console.log(fun(5)(10, 3));
