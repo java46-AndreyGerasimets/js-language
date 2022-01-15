@@ -1,21 +1,17 @@
-// first task
-console.log(('a' + + 'a' + 'a' + 's').toLowerCase());
-
-// second task
-function calculate(oper, n1, n2) {
-    return(eval(n1 + oper + n2));
-}
-console.log(calculate("-", 2, 3));
-
-// third task
-function fun(a) {
-    function sum(b, c) {
-        return b + c;
+console.log(encode(10, "ILoVeJavAScript"))
+function encode (num, codingString) {
+    const temp = "" + codingString;
+    if (temp.length < 2 || codingString.split("").some(function(v,i,a){return a.lastIndexOf(v)!=i;})) {
+        return "Wrong coding string";
     }
-
-    return function(b, c) {
-        return a * sum(b, c);
-    };
+    const base = temp.length;
+    let res = "";
+    do {
+        const digit = Math.trunc(num % base);
+        const symb = codingString[digit];
+        res = symb + res;
+        num = Math.trunc(num / base);
+        
+        } while(num >= 1);
+    return res;
 }
-
-console.log(fun(5)(10, 3));
