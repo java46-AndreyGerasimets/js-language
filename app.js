@@ -7,18 +7,18 @@ console.log(arHw);
 
 // Task 2
 
-let matrix = [[1, 2], [3, 4], [5, 6]];
+const matrix = [[1, 2], [3, 4], [5, 6]];
 
 console.log(matrixTransp(matrix));
 
 function matrixTransp(matrix) {
-    var newMatrix = [];
-    for (var i = 0; i < matrix[0].length; i++) {
+    let newMatrix = [];
+    for (let i = 0; i < matrix[0].length; i++) {
         newMatrix.push([]);
     }
 
-    for (var i = 0; i < matrix.length; i++) {
-        for (var j = 0; j < matrix[0].length; j++) {
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[0].length; j++) {
             newMatrix[j].push(matrix[i][j]);
         }
     }
