@@ -12,16 +12,5 @@ const matrix = [[1, 2], [3, 4], [5, 6]];
 console.log(matrixTransp(matrix));
 
 function matrixTransp(matrix) {
-    let newMatrix = [];
-    for (let i = 0; i < matrix[0].length; i++) {
-        newMatrix.push([]);
-    }
-
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[0].length; j++) {
-            newMatrix[j].push(matrix[i][j]);
-        }
-    }
-
-    return newMatrix;
+    return Object.keys(matrix[0]).map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
 }
