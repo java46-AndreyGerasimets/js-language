@@ -1,51 +1,28 @@
-function myForEach(array, callback) {
-    for (let i = 0; i < array.length; i++) {
-            callback(array[i], i, array);
-    }
-}
-function myMap(array, callback) {
-    const res = [];
-    function forEachCall(n, i, a) {
-            res.push(callback(n, i, a));
-    }
-    myForEach(array, forEachCall);
-    return res;
-}
+const person1 = { id: 123, name: 'Moshe', address: { city: 'Lod', street: 'Sokolov' } };
+const person2 = { id: 123, name: 'Moshe', address: { city: 'Lod', street: 'Sokolov' } };
 
-function myFilter(array, callbackPredicate) {
-    const res = [];
-    // function forEachCallback(n, i, a) {
-    //         if (callbackPredicate(n, i, a)) {
-    //                 res.push(n);
-    //         }
-    // }
-    myForEach(array, (n, i, a) => callbackPredicate(n, i, a) && res.push(n) );
-    return res;
-}
-const ar20 = [13, 17, 20, 23, 2, 40,50];
-const arEvenOdd = myFilter(ar20,(n, _i, a) => a.length % 2 == 0 ?
-n % 2 == 0 : n % 2 == 1);
-console.log(arEvenOdd);
-function myReduce(array, callbackReduce, initial) {
-    
-    if (initial === undefined) {
-            initial = array[0];
-            array = array.slice(1);
-    }
-    let res = initial;
-    // function forEachCallack(n, i, a) {
-    //          res = callbackReduce(res,n,i,a );       
-    // }
-    myForEach(array,(n, i, a) => res = callbackReduce(res, n, i, a));
-    return res;
-}
-let res = myReduce(ar20, (res, cur) => res + cur, 0);
-console.log(res)
-let max = myReduce(ar20,(max, cur)=>cur > max ? cur : max, ar20[0]);
-console.log(max);
+function createAddress(city, street) {
+         return {city, street}
+ }
+ function createPerson(id, name, address) {
+         return {id, name, address};
+ }
+const persons = [
+         createPerson(123, "Vasya", createAddress("Rehovot","Parshani")),
+         createPerson(124, "Olya", createAddress("Rehovot","Pr. Plaut")),
+         createPerson(125, "Tolya", createAddress("Tel-Aviv","Dizengoff")),
+         createPerson(126, "Sara", createAddress('Lod', 'Sokolov'))
+ ]
 
-// reduce with no second argument
-res = myReduce(ar20,(res, cur) => res + cur);
-max = myReduce(ar20,(max, cur)=>cur > max ? cur : max);
-console.log(res);
-console.log(max);
+//task 3
+ function getPersonsCity(persons, city) {
+         return persons.filter(p => p.address.city === city);
+ }
+ console.log(getPersonsCity(persons, 'Rehovot'));
+//task 4
+ function movePersonsNoCityAtBeginning(persons, city) {
+         const personsRes = getPersonsCity(persons, city);
+         personsRes.unshift(...persons.filter(p => p.address.city !== city));
+         return personsRes;
+ }
+ console.log(movePersonsNoCityAtBeginning(persons,  'Rehovot'));
