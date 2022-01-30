@@ -1,51 +1,36 @@
-function myForEach(array, callback) {
-    for (let i = 0; i < array.length; i++) {
-            callback(array[i], i, array);
-    }
-}
-function myMap(array, callback) {
-    const res = [];
-    function forEachCall(n, i, a) {
-            res.push(callback(n, i, a));
-    }
-    myForEach(array, forEachCall);
-    return res;
+function displayOccurrences(array) {
+    const res = checkAndCount(array);
+    Object.entries(res).sort((e1, e2) => {
+            const res = e2[1] - e1[1];
+            return res === 0 ? e1[0].localeCompare(e2[0]) :  res;
+    }).forEach(e => console.log(`${e[0]} -> ${e[1]}`))
 }
 
-function myFilter(array, callbackPredicate) {
-    const res = [];
-    // function forEachCallback(n, i, a) {
-    //         if (callbackPredicate(n, i, a)) {
-    //                 res.push(n);
-    //         }
-    // }
-    myForEach(array, (n, i, a) => callbackPredicate(n, i, a) && res.push(n) );
-    return res;
+// task 1
+function checkAndCount(array) {
+    return array.reduce(function (acc, curr) {
+        return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+      }, {});
 }
-const ar20 = [13, 17, 20, 23, 2, 40,50];
-const arEvenOdd = myFilter(ar20,(n, _i, a) => a.length % 2 == 0 ?
-n % 2 == 0 : n % 2 == 1);
-console.log(arEvenOdd);
-function myReduce(array, callbackReduce, initial) {
-    
-    if (initial === undefined) {
-            initial = array[0];
-            array = array.slice(1);
-    }
-    let res = initial;
-    // function forEachCallack(n, i, a) {
-    //          res = callbackReduce(res,n,i,a );       
-    // }
-    myForEach(array,(n, i, a) => res = callbackReduce(res, n, i, a));
-    return res;
-}
-let res = myReduce(ar20, (res, cur) => res + cur, 0);
-console.log(res)
-let max = myReduce(ar20,(max, cur)=>cur > max ? cur : max, ar20[0]);
-console.log(max);
 
-// reduce with no second argument
-res = myReduce(ar20,(res, cur) => res + cur);
-max = myReduce(ar20,(max, cur)=>cur > max ? cur : max);
-console.log(res);
-console.log(max);
+// task 2
+function countBy(array, callbackFun) {
+    displayOccurrences(array.map(e => callbackFun(e)));
+}
+
+// tests
+const ar = ["bc", "lmn", "d", "d", "lmn", "a", "lmn", "a"];
+displayOccurrences(ar);
+
+console.log('Statistics for doubles');
+const arrDouble = [6.4, 7.3, 6.5, 6.9];
+countBy(arrDouble, element => Math.floor(element));
+
+console.log('Statistics for strings');
+const arrString = ['abcd', 'lmnr', 'ab', 'dddd'];
+countBy(arrString, element => element.length);
+
+console.log('Statistics for objects');
+const arrObject = [{age: 25, id: 123, name: 'Vasya'},{age: 50, id: 123, name: 'Vasya'},
+            {age: 25, id: 123, name: 'Vasya'},{age: 70, id: 123, name: 'Vasya'}  ];
+countBy(arrObject, element => element.age);
